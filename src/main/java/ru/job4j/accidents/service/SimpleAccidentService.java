@@ -16,4 +16,9 @@ public class SimpleAccidentService implements AccidentService {
     public List<Accident> findAll() {
         return repository.findAll();
     }
+
+    @Override
+    public void create(Accident accident) {
+        repository.create(accident);
+    }
 }

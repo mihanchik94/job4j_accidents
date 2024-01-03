@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="utf-8">
@@ -11,40 +11,38 @@
             integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <title>Автомобильные инциденты</title>
+    <title>Автомобильные инцеденты-Редактировать</title>
 </head>
 <body>
 <div class="container-fluid p-0">
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
-        <div class="collapse navbar-collapse">
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a class="nav-item nav-link" href="#">Главная</a>
-                <a class="nav-item nav-link active" th:href="@{/accidents}">Инциденты</a>
-                <a class="nav-item nav-link" th:href="@{/addAccident}">Добавить Инцидент</a>
+                <a class="nav-item nav-link" th:href="@{/accidents}">Инциденты</a>
+                <a class="nav-item nav-link active" th:href="@{/addAccident}">Добавить Инцидент</a>
             </div>
-        </div>
-        <div class="navbar-nav d-flex flex-row-reverse">
-            <div th:text="${user}"></div>
         </div>
     </nav>
 </div>
-<div class="container-fluid px-0 py-2" style="max-width:1600px">
-    <table class="table">
-        <thead>
-        <tr>
-            <th class="col-1 p-2" scope="row">Имя нарушителя</th>
-            <th class="col-1 p-2" scope="row">Описание нарушения</th>
-            <th class="col-1 p-2" scope="row">Адрес нарушителя</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="accident : ${accidents}">
-            <td class="p-2" th:text="${accident.name}"></td>
-            <td class="p-2" th:text="${accident.text}"></td>
-            <td class="p-2" th:text="${accident.address}"></td>
-        </tr>
-        </tbody>
-    </table>
+<div class="container">
+    <div class="row pt-3">
+        <div class="card" style="width: 100%">
+            <div class="card-header">
+                Редактировать инцидент
+            </div>
+            <div class="card-body">
+                <form th:action="@{/editAccident}" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="id" value="0"/>
+                    <div class="form-group">
+                        <label for="name">Имя</label>
+                        <input type="text" class="form-control" name="name" id="name">
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3">Сохранить</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

@@ -20,6 +20,11 @@ public class AccidentMem implements AccidentRepository {
         return new ArrayList<>(accidentMap.values());
     }
 
+    @Override
+    public void create(Accident accident) {
+        accidentMap.putIfAbsent(accident.getId(), accident);
+    }
+
     private void inputIntoMemStorage() {
         Accident accident1 = new Accident(1, "name 1", "text 1", "address 1");
         Accident accident2 = new Accident(2, "name 2", "text 2", "address 2");
