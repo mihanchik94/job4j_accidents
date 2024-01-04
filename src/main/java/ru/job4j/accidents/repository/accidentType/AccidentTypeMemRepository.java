@@ -13,11 +13,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
 @AllArgsConstructor
-public class AccidentTypeMem implements AccidentTypeRepository {
+public class AccidentTypeMemRepository implements AccidentTypeRepository {
     private static final AtomicInteger IDS = new AtomicInteger(3);
     private final Map<Integer, AccidentType> types;
 
-    public AccidentTypeMem() {
+    public AccidentTypeMemRepository() {
         this.types = new ConcurrentHashMap<>();
         types.put(1, new AccidentType(1, "Две машины"));
         types.put(2, new AccidentType(2, "Машина и человек"));
