@@ -8,5 +8,5 @@ import java.util.List;
 @Service
 public interface AccidentService {
     List<Accident> findAll();
-    void create(Accident accident);
+    Accident create(Accident accident);
 }

@@ -11,15 +11,15 @@
             integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <title>Автомобильные инциденты - Главная</title>
+    <title>Автомобильные инциденты</title>
 </head>
 <body>
 <div class="container-fluid p-0">
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
         <div class="collapse navbar-collapse">
             <div class="navbar-nav">
-                <a class="nav-item nav-link active" href="/">Главная</a>
-                <a class="nav-item nav-link" th:href="@{/accidents}">Инциденты</a>
+                <a class="nav-item nav-link" th:href="@{/}">Главная</a>
+                <a class="nav-item nav-link active" th:href="@{/accidents}">Инциденты</a>
                 <a class="nav-item nav-link" th:href="@{/createAccident}">Добавить Инцидент</a>
             </div>
         </div>
@@ -28,12 +28,23 @@
         </div>
     </nav>
 </div>
-<div class="container mt-2">
-    <h3>Проект Accidents</h3>
-    <ul>
-        <li><a th:href="@{/accidents}">Вce инциденты</a></li>
-        <li><a th:href="@{/createAccident}">Добавить инцидент</a></li>
-    </ul>
+<div class="container-fluid px-0 py-2" style="max-width:1600px">
+    <table class="table">
+        <thead>
+        <tr>
+            <th class="col-1 p-2" scope="row">Имя нарушителя</th>
+            <th class="col-1 p-2" scope="row">Описание нарушения</th>
+            <th class="col-1 p-2" scope="row">Адрес нарушителя</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="accident : ${accidents}">
+            <td class="p-2" th:text="${accident.name}"></td>
+            <td class="p-2" th:text="${accident.text}"></td>
+            <td class="p-2" th:text="${accident.address}"></td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

@@ -8,10 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
 @AllArgsConstructor
 public class AccidentMem implements AccidentRepository {
+    private static final AtomicInteger IDS = new AtomicInteger(3);
     private final Map<Integer, Accident> accidentMap;
 
     public AccidentMem() {
@@ -30,7 +32,9 @@ public class AccidentMem implements AccidentRepository {
     }
 
     @Override
-    public void create(Accident accident) {
-        accidentMap.putIfAbsent(accident.getId(), accident);
+    public Accident create(Accident accident) {
+        int accidentId = IDS.incrementAndGet();
+        accident.setId(accidentId);
+        return accidentMap.putIfAbsent(accidentId, accident);
     }
 }
