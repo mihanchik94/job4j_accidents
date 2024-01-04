@@ -7,6 +7,7 @@ import ru.job4j.accidents.model.Accident;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -33,8 +34,15 @@ public class AccidentMem implements AccidentRepository {
 
     @Override
     public Accident create(Accident accident) {
-        int accidentId = IDS.incrementAndGet();
-        accident.setId(accidentId);
-        return accidentMap.putIfAbsent(accidentId, accident);
+        if (accident.getId() == 0) {
+            int accidentId = IDS.incrementAndGet();
+            accident.setId(accidentId);
+        }
+        return accidentMap.put(accident.getId(), accident);
+    }
+
+    @Override
+    public Optional<Accident> findById(int id) {
+        return Optional.of(accidentMap.get(id));
     }
 }
