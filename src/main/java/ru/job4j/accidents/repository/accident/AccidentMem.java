@@ -1,8 +1,9 @@
-package ru.job4j.accidents.repository;
+package ru.job4j.accidents.repository.accident;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import ru.job4j.accidents.model.Accident;
+import ru.job4j.accidents.model.AccidentType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +20,9 @@ public class AccidentMem implements AccidentRepository {
 
     public AccidentMem() {
         this.accidentMap = new ConcurrentHashMap<>();
-        Accident accident1 = new Accident(1, "name 1", "text 1", "address 1");
-        Accident accident2 = new Accident(2, "name 2", "text 2", "address 2");
-        Accident accident3 = new Accident(3, "name 3", "text 3", "address 3");
+        Accident accident1 = new Accident(0, "name 1", "text 1", "address 1", new AccidentType(1, "Две машины"));
+        Accident accident2 = new Accident(1, "name 2", "text 2", "address 2", new AccidentType(2, "Машина и человек"));
+        Accident accident3 = new Accident(2, "name 3", "text 3", "address 3", new AccidentType(3, "Машина и велосипед"));
         accidentMap.putIfAbsent(accident1.getId(), accident1);
         accidentMap.putIfAbsent(accident2.getId(), accident2);
         accidentMap.putIfAbsent(accident3.getId(), accident3);
