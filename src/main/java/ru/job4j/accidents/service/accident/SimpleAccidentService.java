@@ -31,4 +31,11 @@ public class SimpleAccidentService implements AccidentService {
     public Optional<Accident> findById(int id) {
         return repository.findById(id);
     }
+
+    @Override
+    public Optional<Accident> update(Accident accident) {
+        int typeId = accident.getType().getId();
+        accident.setType(types.findById(typeId).get());
+        return repository.update(accident);
+    }
 }

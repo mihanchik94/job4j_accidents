@@ -14,6 +14,7 @@ import ru.job4j.accidents.service.accidentType.AccidentTypeService;
 import ru.job4j.accidents.service.rule.RuleService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Optional;
 import java.util.Set;
 
 @Controller
@@ -27,14 +28,14 @@ public class AccidentController {
     public String viewAllAccidents(Model model) {
         model.addAttribute("accidents", accidentService.findAll());
         model.addAttribute("rules", ruleService.findAll());
-        return "allAccidents";
+        return "accident/allAccidents";
     }
 
     @GetMapping("/createAccident")
     public String viewCreateAccident(Model model) {
         model.addAttribute("types", accidentTypeService.findAll());
         model.addAttribute("rules", ruleService.findAll());
-        return "createAccident";
+        return "accident/createAccident";
     }
 
     @PostMapping("/saveAccident")
@@ -49,17 +50,26 @@ public class AccidentController {
 
     @GetMapping("/formUpdateAccident")
     public String formUpdate(@RequestParam("id") int id, Model model) {
-        model.addAttribute("accident", accidentService.findById(id).get());
+        Optional<Accident> accidentOptional = accidentService.findById(id);
+        if (accidentOptional.isEmpty()) {
+            model.addAttribute("message", "Пользователь с указанным id не найден");
+            return "errors/404";
+        }
+        model.addAttribute("accident", accidentOptional.get());
         model.addAttribute("types", accidentTypeService.findAll());
         model.addAttribute("rules", ruleService.findAll());
-        return "updateAccident";
+        return "accident/updateAccident";
     }
 
     @PostMapping("/updateAccident")
-    public String update(@ModelAttribute Accident accident, @RequestParam("rIds") String[] ids) {
+    public String update(@ModelAttribute Accident accident, @RequestParam("rIds") String[] ids, Model model) {
         Set<Rule> rules = ruleService.convertFromStringArrayToRulesSet(ids);
         accident.setRules(rules);
-        accidentService.create(accident);
+        Optional<Accident> optionalAccident = accidentService.update(accident);
+        if (optionalAccident.isEmpty()) {
+            model.addAttribute("message", "Ошибка во время обновления");
+            return "errors/404";
+        }
         return "redirect:/";
     }
 }

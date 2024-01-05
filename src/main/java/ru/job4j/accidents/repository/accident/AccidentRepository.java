@@ -9,4 +9,5 @@ public interface AccidentRepository {
     List<Accident> findAll();
     Accident create(Accident accident);
     Optional<Accident> findById(int id);
+    Optional<Accident> update(Accident accident);
 }

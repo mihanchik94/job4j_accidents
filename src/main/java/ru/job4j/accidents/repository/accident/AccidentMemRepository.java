@@ -47,4 +47,26 @@ public class AccidentMemRepository implements AccidentRepository {
     public Optional<Accident> findById(int id) {
         return Optional.of(accidentMap.get(id));
     }
+
+    @Override
+    public Optional<Accident> update(Accident accident) {
+        Accident updatedAccident = accidentMap.computeIfPresent(accident.getId(), (id, oldAccident) ->
+                new Accident(oldAccident.getId(), accident.getName(), accident.getText(), accident.getAddress(), accident.getType(), accident.getRules()));
+        return Optional.ofNullable(updatedAccident);
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
