@@ -9,7 +9,7 @@ import java.util.Optional;
 @Service
 public interface AccidentService {
     List<Accident> findAll();
-    Accident create(Accident accident);
+    Accident create(Accident accident, List<Integer> rulesIds);
     Optional<Accident> findById(int id);
-    Optional<Accident> update(Accident accident);
+    Optional<Accident> update(Accident accident, List<Integer> rulesIds);
 }

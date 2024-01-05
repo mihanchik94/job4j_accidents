@@ -8,14 +8,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.job4j.accidents.model.Accident;
-import ru.job4j.accidents.model.Rule;
 import ru.job4j.accidents.service.accident.AccidentService;
 import ru.job4j.accidents.service.accidentType.AccidentTypeService;
 import ru.job4j.accidents.service.rule.RuleService;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Controller
 @AllArgsConstructor
@@ -39,12 +37,8 @@ public class AccidentController {
     }
 
     @PostMapping("/saveAccident")
-    public String save(@ModelAttribute Accident accident, HttpServletRequest req) {
-        String[] ids = req.getParameterValues("rIds");
-        Set<Rule> rules = ruleService.convertFromStringArrayToRulesSet(ids);
-        accident.setType(accidentTypeService.findById(accident.getType().getId()).get());
-        accident.setRules(rules);
-        accidentService.create(accident);
+    public String save(@ModelAttribute Accident accident, @RequestParam("rIds") List<Integer> ids) {
+        accidentService.create(accident, ids);
         return "redirect:/accidents";
     }
 
@@ -62,10 +56,8 @@ public class AccidentController {
     }
 
     @PostMapping("/updateAccident")
-    public String update(@ModelAttribute Accident accident, @RequestParam("rIds") String[] ids, Model model) {
-        Set<Rule> rules = ruleService.convertFromStringArrayToRulesSet(ids);
-        accident.setRules(rules);
-        Optional<Accident> optionalAccident = accidentService.update(accident);
+    public String update(@ModelAttribute Accident accident, @RequestParam("rIds") List<Integer> ids, Model model) {
+        Optional<Accident> optionalAccident = accidentService.update(accident, ids);
         if (optionalAccident.isEmpty()) {
             model.addAttribute("message", "Ошибка во время обновления");
             return "errors/404";

@@ -5,11 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.job4j.accidents.model.Rule;
 import ru.job4j.accidents.repository.rule.RuleRepository;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -33,9 +29,7 @@ public class SimpleRuleService implements RuleService {
     }
 
     @Override
-    public Set<Rule> convertFromStringArrayToRulesSet(String[] ids) {
-        return Arrays.stream(ids)
-                .map(value -> ruleRepository.findById(Integer.parseInt(value)).get())
-                .collect(Collectors.toSet());
+    public List<Rule> findRulesByIds(Collection<Integer> ids) {
+        return ruleRepository.findRulesByIds(ids);
     }
 }
