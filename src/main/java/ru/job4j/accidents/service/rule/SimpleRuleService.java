@@ -3,6 +3,7 @@ package ru.job4j.accidents.service.rule;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.accidents.model.Rule;
+import ru.job4j.accidents.repository.rule.RuleJdbcTemplateRepository;
 import ru.job4j.accidents.repository.rule.RuleRepository;
 
 import java.util.*;
@@ -10,7 +11,7 @@ import java.util.*;
 @Service
 @AllArgsConstructor
 public class SimpleRuleService implements RuleService {
-    private final RuleRepository ruleRepository;
+    private final RuleJdbcTemplateRepository ruleRepository;
 
 
     @Override

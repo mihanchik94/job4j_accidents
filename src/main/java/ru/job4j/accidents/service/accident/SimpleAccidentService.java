@@ -3,11 +3,13 @@ package ru.job4j.accidents.service.accident;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.accidents.model.Accident;
-import ru.job4j.accidents.model.Rule;
-import ru.job4j.accidents.repository.accident.AccidentRepository;
+import ru.job4j.accidents.repository.accident.AccidentJdbcTemplateRepository;
+import ru.job4j.accidents.repository.accidentType.AccidentTypeJdbcTemplateRepository;
 import ru.job4j.accidents.repository.accidentType.AccidentTypeRepository;
+import ru.job4j.accidents.repository.rule.RuleJdbcTemplateRepository;
 import ru.job4j.accidents.repository.rule.RuleRepository;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -15,9 +17,9 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class SimpleAccidentService implements AccidentService {
-    private final AccidentRepository accidentRepository;
-    private final AccidentTypeRepository accidentTypeRepository;
-    private final RuleRepository ruleRepository;
+    private final AccidentJdbcTemplateRepository accidentRepository;
+    private final AccidentTypeJdbcTemplateRepository accidentTypeRepository;
+    private final RuleJdbcTemplateRepository ruleRepository;
 
     private void setAccidentTypesAndRules(Accident accident, List<Integer> rulesIds) {
         int typeId = accident.getType().getId();
@@ -26,7 +28,7 @@ public class SimpleAccidentService implements AccidentService {
     }
 
     @Override
-    public List<Accident> findAll() {
+    public Collection<Accident> findAll() {
         return accidentRepository.findAll();
     }
 

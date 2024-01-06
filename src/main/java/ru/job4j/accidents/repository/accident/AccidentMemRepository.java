@@ -18,11 +18,11 @@ public class AccidentMemRepository implements AccidentRepository {
 
     public AccidentMemRepository() {
         this.accidentMap = new ConcurrentHashMap<>();
-        Accident accident1 = new Accident(0, "name 1", "text 1", "address 1",
+        Accident accident1 = new Accident(1, "name 1", "text 1", "address 1",
                 new AccidentType(1, "Две машины"), Set.of(new Rule(1, "Статья. 1")));
-        Accident accident2 = new Accident(1, "name 2", "text 2", "address 2",
+        Accident accident2 = new Accident(2, "name 2", "text 2", "address 2",
                 new AccidentType(2, "Машина и человек"), Set.of(new Rule(1, "Статья. 1"), new Rule(3, "Статья. 3")));
-        Accident accident3 = new Accident(2, "name 3", "text 3", "address 3",
+        Accident accident3 = new Accident(3, "name 3", "text 3", "address 3",
                 new AccidentType(3, "Машина и велосипед"), Set.of(new Rule(2, "Статья. 2")));
         accidentMap.putIfAbsent(accident1.getId(), accident1);
         accidentMap.putIfAbsent(accident2.getId(), accident2);
@@ -30,7 +30,7 @@ public class AccidentMemRepository implements AccidentRepository {
     }
 
     @Override
-    public List<Accident> findAll() {
+    public Collection<Accident> findAll() {
         return new ArrayList<>(accidentMap.values());
     }
 
