@@ -3,14 +3,14 @@ package ru.job4j.accidents.service.rule;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.accidents.model.Rule;
-import ru.job4j.accidents.repository.rule.HbnRuleRepository;
+import ru.job4j.accidents.repository.rule.DataRuleRepository;
 
 import java.util.*;
 
 @Service
 @AllArgsConstructor
 public class SimpleRuleService implements RuleService {
-    private final HbnRuleRepository ruleRepository;
+    private final DataRuleRepository ruleRepository;
 
 
     @Override
@@ -20,7 +20,7 @@ public class SimpleRuleService implements RuleService {
 
     @Override
     public Rule create(Rule rule) {
-        return ruleRepository.create(rule);
+        return ruleRepository.save(rule);
     }
 
     @Override
@@ -30,6 +30,6 @@ public class SimpleRuleService implements RuleService {
 
     @Override
     public List<Rule> findRulesByIds(Collection<Integer> ids) {
-        return ruleRepository.findRulesByIds(ids);
+        return ruleRepository.findAllById(ids);
     }
 }

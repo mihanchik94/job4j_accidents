@@ -41,13 +41,4 @@ public class HbnRuleRepository implements RuleRepository {
         return crudRepository.query("from Rule where id in (:fIds)", Rule.class,
                 Map.of("fIds", ids));
     }
-
-  /*  @Override
-    public List<Rule> findRulesByIds(Collection<Integer> ids) {
-        try (Session session = sf.openSession()) {
-            Query query = session.createQuery("from Rule where id in (:fIds)", Rule.class)
-                    .setParameter("fIds", ids);
-            return query.list();
-        }
-    }*/
 }
