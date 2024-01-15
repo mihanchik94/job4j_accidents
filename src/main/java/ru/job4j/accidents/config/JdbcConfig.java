@@ -2,7 +2,6 @@ package ru.job4j.accidents.config;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -14,7 +13,6 @@ import javax.sql.DataSource;
 @PropertySource("classpath:db.properties")
 @EnableTransactionManagement
 public class JdbcConfig {
-    @Bean
     DataSource ds(@Value("${jdbc.driver}") String driver,
                   @Value("${jdbc.url}") String url,
                   @Value("${jdbc.username}") String userName,
@@ -27,7 +25,6 @@ public class JdbcConfig {
         return ds;
     }
 
-    @Bean
     JdbcTemplate jdbc(DataSource ds) {
         return new JdbcTemplate(ds);
     }
